@@ -114,9 +114,6 @@ namespace Sudoku
         /// <summary>
         /// Checks the specified cell can accept the specified value.
         /// </summary>
-        /// <param name="val"></param>
-        /// <param name="cell"></param>
-        /// <returns></returns>
         public bool IsValidValueForTheCell(int val, Cell cell)
         {
             // Check the value whether exists in the 3x3 group.
@@ -148,8 +145,6 @@ namespace Sudoku
         /// <summary>
         /// Backtracking operation for the cell specified with index.
         /// </summary>
-        /// <param name="index"></param>
-        /// <returns></returns>
         private int BacktrackTo(int index)
         {
             // Pass over the protected cells.
@@ -173,9 +168,6 @@ namespace Sudoku
         /// <summary>
         /// Returns a valid number for the specified cell index.
         /// </summary>
-        /// <param name="cellIndex"></param>
-        /// <param name="useRandomFactor"></param>
-        /// <returns></returns>
         private int GetValidNumberForTheCell(int cellIndex, bool useRandomFactor)
         {
             int theFoundValidNumber = 0;
@@ -211,15 +203,13 @@ namespace Sudoku
         /// <summary>
         /// Add given value into the specified index of the blacklist. 
         /// </summary>
-        /// <param name="value"></param>
-        /// <param name="cellIndex"></param>
         private void AddToBlacklist(int value, int cellIndex) =>
             BlackListsOfCells[cellIndex].Add(value);
 
         /// <summary>
         /// Initializes the black lists of the cells.
         /// </summary>
-        /// <param name="startCleaningFromThisIndex">Clear the rest of the blacklist starting from index.</param>
+        /// <param name="startCleaningFromThisIndex">Clear the rest of the blacklist starting from the index.</param>
         private void ClearBlackList(int startCleaningFromThisIndex = 0)
         {
             for (int index = startCleaningFromThisIndex; index < BlackListsOfCells.Count; index++)

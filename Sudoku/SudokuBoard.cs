@@ -29,6 +29,9 @@ namespace Sudoku
         /// </summary>
         public int TOTAL_CELLS { get => TOTAL_ROWS * TOTAL_COLUMNS; }
 
+        /// <summary>
+        /// The list of the cells.
+        /// </summary>
         internal List<Cell> Cells { get; }
 
         /// <summary>
@@ -57,7 +60,6 @@ namespace Sudoku
         /// Gets Cell specified with the index.
         /// </summary>
         /// <param name="cellIndex">Index of the cell specified. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on...)</param>
-        /// <returns></returns>
         public Cell GetCell(int cellIndex)
         {
             return (cellIndex >= 0 && cellIndex < Cells.Count) ? Cells[cellIndex] : throw new System.Exception("Out of index");
@@ -67,7 +69,6 @@ namespace Sudoku
         /// Gets Cell specified with row and column numbers.
         /// </summary>
         /// <param name="cellPosition">The row-column number of the cell specified.</param>
-        /// <returns></returns>
         public Cell GetCell(Cell.RCPosition cellPosition)
         {
             int cellIndex = (cellPosition.Row - 1) * TOTAL_ROWS + cellPosition.Column - 1;
@@ -100,14 +101,12 @@ namespace Sudoku
         /// <summary>
         /// Checks the board is already filled.
         /// </summary>
-        /// <returns></returns>
         public bool IsBoardFilled() =>
             Cells.FirstOrDefault(cell => cell.Value == -1) == null;
 
         /// <summary>
         /// Returns whether table is empty.
         /// </summary>
-        /// <returns></returns>
         public bool IsTableEmpty() =>
             Cells.FirstOrDefault(cell => cell.Value != -1) == null;
 
