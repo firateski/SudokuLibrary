@@ -170,6 +170,11 @@
             The number of cells on the board.
             </summary>
         </member>
+        <member name="M:Sudoku.SudokuBoard.InitializeCells">
+            <summary>
+            Creates and adds the cells into the list of the 'Cells'.
+            </summary>
+        </member>
         <member name="M:Sudoku.SudokuBoard.#ctor">
             <summary>
             Creates empty Sudoku game object.

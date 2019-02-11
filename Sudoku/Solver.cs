@@ -36,6 +36,18 @@ namespace Sudoku
         private readonly Random Random = new Random();
 
         /// <summary>
+        /// Initialize the blacklist.
+        /// </summary>
+        private void InitializeBlackList()
+        {
+            BlackListsOfCells = new List<List<int>>(SudokuBoard.TOTAL_CELLS);
+            for (int index = 0; index < BlackListsOfCells.Capacity; index++)
+            {
+                BlackListsOfCells.Add(new List<int>());
+            }
+        }
+
+        /// <summary>
         /// Creates a solver object for the specified Sudoku object.
         /// </summary>
         /// <param name="sudoku">The sudoku game object to use.</param>
@@ -43,12 +55,7 @@ namespace Sudoku
         {
             SudokuBoard = sudoku ?? new SudokuBoard();
 
-            // Initialize the blacklist.
-            BlackListsOfCells = new List<List<int>>(SudokuBoard.TOTAL_CELLS);
-            for (int index = 0; index < BlackListsOfCells.Capacity; index++)
-            {
-                BlackListsOfCells.Add(new List<int>());
-            }
+            InitializeBlackList();
         }
 
         /// <summary>
@@ -62,7 +69,7 @@ namespace Sudoku
             if (!CheckTableStateIsValid()) return false;
 
             // Init protected index list to protect the current state of the board while backtracking.
-            InitIndexListOfTheFilledCells();
+            InitIndexListOfTheAlreadyFilledCells();
 
             // Clear the blacklist
             ClearBlackList();
@@ -79,6 +86,7 @@ namespace Sudoku
                     continue;
                 }
 
+                // Clear blacklists of the indexes after the current index.
                 ClearBlackList(startCleaningFromThisIndex: currentCellIndex + 1);
 
                 Cell currentCell = SudokuBoard.GetCell(cellIndex: currentCellIndex);
@@ -134,7 +142,7 @@ namespace Sudoku
         /// <summary>
         /// Init protected index list to protect the current state of the board while backtracking.
         /// </summary>
-        public void InitIndexListOfTheFilledCells()
+        public void InitIndexListOfTheAlreadyFilledCells()
         {
             TheIndexesOfFilledCells.Clear();
             TheIndexesOfFilledCells.AddRange(SudokuBoard.Cells
@@ -203,8 +211,7 @@ namespace Sudoku
         /// <summary>
         /// Add given value into the specified index of the blacklist. 
         /// </summary>
-        private void AddToBlacklist(int value, int cellIndex) =>
-            BlackListsOfCells[cellIndex].Add(value);
+        private void AddToBlacklist(int value, int cellIndex) => BlackListsOfCells[cellIndex].Add(value);
 
         /// <summary>
         /// Initializes the black lists of the cells.

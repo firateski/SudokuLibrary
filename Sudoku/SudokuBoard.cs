@@ -10,6 +10,11 @@ namespace Sudoku
     public class SudokuBoard
     {
         /// <summary>
+        /// The list of the cells.
+        /// </summary>
+        internal List<Cell> Cells { get; }
+
+        /// <summary>
         /// Sudoku board object.
         /// </summary>
         public SudokuSolver Solver { get; }
@@ -30,18 +35,10 @@ namespace Sudoku
         public int TOTAL_CELLS { get => TOTAL_ROWS * TOTAL_COLUMNS; }
 
         /// <summary>
-        /// The list of the cells.
+        /// Creates and adds the cells into the list of the 'Cells'.
         /// </summary>
-        internal List<Cell> Cells { get; }
-
-        /// <summary>
-        /// Creates empty Sudoku game object.
-        /// </summary>
-        public SudokuBoard()
+        private void InitializeCells()
         {
-            Cells = new List<Cell>(TOTAL_CELLS);
-            Solver = new SudokuSolver(this);
-
             for (int x = 0; x < TOTAL_ROWS; x++)
             {
                 for (int y = 0; y < TOTAL_COLUMNS; y++)
@@ -57,13 +54,21 @@ namespace Sudoku
         }
 
         /// <summary>
+        /// Creates empty Sudoku game object.
+        /// </summary>
+        public SudokuBoard()
+        {
+            Cells = new List<Cell>(TOTAL_CELLS);
+            Solver = new SudokuSolver(this);
+
+            InitializeCells();
+        }
+
+        /// <summary>
         /// Gets Cell specified with the index.
         /// </summary>
-        /// <param name="cellIndex">Index of the cell specified. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on...)</param>
-        public Cell GetCell(int cellIndex)
-        {
-            return (cellIndex >= 0 && cellIndex < Cells.Count) ? Cells[cellIndex] : throw new System.Exception("Out of index");
-        }
+        /// <param name="cellIndex">Index of the cell to return. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on...)</param>
+        public Cell GetCell(int cellIndex) => Cells[cellIndex];
 
         /// <summary>
         /// Gets Cell specified with row and column numbers.
@@ -71,6 +76,7 @@ namespace Sudoku
         /// <param name="cellPosition">The row-column number of the cell specified.</param>
         public Cell GetCell(Cell.RCPosition cellPosition)
         {
+            // Calculate the index from the Row-Column position.
             int cellIndex = (cellPosition.Row - 1) * TOTAL_ROWS + cellPosition.Column - 1;
 
             return GetCell(cellIndex);
@@ -81,10 +87,7 @@ namespace Sudoku
         /// </summary>
         /// <param name="value">The value between 1 - 9 to set to the cell specified.</param>
         /// <param name="cellIndex">Index of the cell specified. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on... )</param>
-        public void SetCellValue(int value, int cellIndex)
-        {
-            Cells[cellIndex].Value = value;
-        }
+        public void SetCellValue(int value, int cellIndex) => Cells[cellIndex].Value = value;
 
         /// <summary>
         /// Sets the value of the cell specified with row and column numbers.
@@ -93,6 +96,7 @@ namespace Sudoku
         /// <param name="cellPosition">The row-column number of the cell specified.</param>
         public void SetCellValue(int value, Cell.RCPosition cellPosition)
         {
+            // Calculate the index from the Row-Column position.
             int cellIndex = (cellPosition.Row - 1) * TOTAL_ROWS + cellPosition.Column - 1;
 
             SetCellValue(value, cellIndex);
@@ -101,24 +105,16 @@ namespace Sudoku
         /// <summary>
         /// Checks the board is already filled.
         /// </summary>
-        public bool IsBoardFilled() =>
-            Cells.FirstOrDefault(cell => cell.Value == -1) == null;
+        public bool IsBoardFilled() => Cells.FirstOrDefault(cell => cell.Value == -1) == null;
 
         /// <summary>
         /// Returns whether table is empty.
         /// </summary>
-        public bool IsTableEmpty() =>
-            Cells.FirstOrDefault(cell => cell.Value != -1) == null;
+        public bool IsTableEmpty() => Cells.FirstOrDefault(cell => cell.Value != -1) == null;
 
         /// <summary>
         /// Fills the game board with -1 which is the default for the empty state. 
         /// </summary>
-        public void Clear()
-        {
-            for (int i = 0; i < TOTAL_CELLS; i++)
-            {
-                SetCellValue(-1, i);
-            }
-        }
+        public void Clear() => Cells.ForEach(cell => SetCellValue(-1, cell.Index));
     }
 }
