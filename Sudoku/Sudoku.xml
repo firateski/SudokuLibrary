@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Sudoku</name>
+    </assembly>
+    <members>
+        <member name="T:Sudoku.Model.Cell">
+            <summary>
+            Game board cell 
+            </summary>
+        </member>
+        <member name="T:Sudoku.Model.Cell.RCPosition">
+            <summary>
+            Row-Column number based position data structure.
+            </summary>
+        </member>
+        <member name="P:Sudoku.Model.Cell.RCPosition.Row">
+            <summary>
+            Row number
+            </summary>
+        </member>
+        <member name="P:Sudoku.Model.Cell.RCPosition.Column">
+            <summary>
+            Columns number
+            </summary>
+        </member>
+        <member name="M:Sudoku.Model.Cell.RCPosition.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Initialize a new instance of the Row-Column based Position with given parameters.
+            </summary>
+            <param name="row"></param>
+            <param name="column"></param>
+        </member>
+        <member name="P:Sudoku.Model.Cell.Value">
+            <summary>
+            Cell value.
+            </summary>
+        </member>
+        <member name="P:Sudoku.Model.Cell.Index">
+            <summary>
+            Cell index in which the cell is located in the single-dimensional list.
+            </summary>
+        </member>
+        <member name="P:Sudoku.Model.Cell.GroupNo">
+            <summary>
+            Group number in which the cell is located.
+            </summary>
+        </member>
+        <member name="P:Sudoku.Model.Cell.Position">
+            <summary>
+            Row-Column number based position of the cell.
+            </summary>
+        </member>
+        <member name="M:Sudoku.Model.Cell.#ctor(System.Int32,System.Int32,System.Int32,Sudoku.Model.Cell.RCPosition)">
+            <summary>
+            Initialize a new instance of the Cell with given parameters.
+            </summary>
+            <param name="value"></param>
+            <param name="index"></param>
+            <param name="groupNo"></param>
+            <param name="position"></param>
+        </member>
+        <member name="T:Sudoku.SudokuSolver">
+            <summary>
+            Sudoku Solver object.
+            </summary>
+        </member>
+        <member name="F:Sudoku.SudokuSolver.SudokuBoard">
+            <summary>
+            Sudoku board instance.
+            </summary>
+        </member>
+        <member name="F:Sudoku.SudokuSolver.Numbers">
+            <summary>
+            Valid numbers to get random numbers for the cells.
+            </summary>
+        </member>
+        <member name="F:Sudoku.SudokuSolver.TheIndexesOfFilledCells">
+            <summary>
+            Cell indexes that excludes from backtracking.
+            </summary>
+        </member>
+        <member name="F:Sudoku.SudokuSolver.BlackListsOfCells">
+            <summary>
+            The list to use for backtracking while solving the processes. Each list of specified index represents the blacklist of the cell.
+            </summary>
+        </member>
+        <member name="F:Sudoku.SudokuSolver.Random">
+            <summary>
+            Random object to use creating random numbers.
+            </summary>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.#ctor(Sudoku.SudokuBoard)">
+            <summary>
+            Creates a solver object for the specified Sudoku object.
+            </summary>
+            <param name="sudoku">The sudoku game object to use.</param>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.SolveThePuzzle(System.Boolean)">
+            <summary>
+            Creates solved state to the game board and returns whether the puzzle solved.
+            </summary>
+            <param name="UseRandomGenerator">Set it to true to see a different result for each solution.</param>
+            <returns>Returns whether the board solved.</returns>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.CheckTableStateIsValid(System.Boolean)">
+            <summary>
+            Check current state of the table is valid.
+            </summary>
+            <returns>Returns whether is table is valid or not.</returns>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.IsValidValueForTheCell(System.Int32,Sudoku.Model.Cell)">
+            <summary>
+            Checks the specified cell can accept the specified value.
+            </summary>
+            <param name="val"></param>
+            <param name="cell"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.InitIndexListOfTheFilledCells">
+            <summary>
+            Init protected index list to protect the current state of the board while backtracking.
+            </summary>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.BacktrackTo(System.Int32)">
+            <summary>
+            Backtracking operation for the cell specified with index.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.GetValidNumberForTheCell(System.Int32,System.Boolean)">
+            <summary>
+            Returns a valid number for the specified cell index.
+            </summary>
+            <param name="cellIndex"></param>
+            <param name="useRandomFactor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.AddToBlacklist(System.Int32,System.Int32)">
+            <summary>
+            Add given value into the specified index of the blacklist. 
+            </summary>
+            <param name="value"></param>
+            <param name="cellIndex"></param>
+        </member>
+        <member name="M:Sudoku.SudokuSolver.ClearBlackList(System.Int32)">
+            <summary>
+            Initializes the black lists of the cells.
+            </summary>
+            <param name="startCleaningFromThisIndex">Clear the rest of the blacklist starting from index.</param>
+        </member>
+        <member name="T:Sudoku.SudokuBoard">
+            <summary>
+            Sudoku game board object
+            </summary>
+        </member>
+        <member name="P:Sudoku.SudokuBoard.Solver">
+            <summary>
+            Sudoku board object.
+            </summary>
+        </member>
+        <member name="P:Sudoku.SudokuBoard.TOTAL_ROWS">
+            <summary>
+            The number of columns on the rows.
+            </summary>
+        </member>
+        <member name="P:Sudoku.SudokuBoard.TOTAL_COLUMNS">
+            <summary>
+            The number of columns on the board.
+            </summary>
+        </member>
+        <member name="P:Sudoku.SudokuBoard.TOTAL_CELLS">
+            <summary>
+            The number of cells on the board.
+            </summary>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.#ctor">
+            <summary>
+            Creates empty Sudoku game object.
+            </summary>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.GetCell(System.Int32)">
+            <summary>
+            Gets Cell specified with the index.
+            </summary>
+            <param name="cellIndex">Index of the cell specified. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on...)</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.GetCell(Sudoku.Model.Cell.RCPosition)">
+            <summary>
+            Gets Cell specified with row and column numbers.
+            </summary>
+            <param name="cellPosition">The row-column number of the cell specified.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.SetCellValue(System.Int32,System.Int32)">
+            <summary>
+            Sets the value of the cell specified with the index.
+            </summary>
+            <param name="value">The value between 1 - 9 to set to the cell specified.</param>
+            <param name="cellIndex">Index of the cell specified. (The index value indicates the position of the cell on the board. 0 for the first column of the first row, 1 for the second column of the first row and so on... )</param>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.SetCellValue(System.Int32,Sudoku.Model.Cell.RCPosition)">
+            <summary>
+            Sets the value of the cell specified with row and column numbers.
+            </summary>
+            <param name="value">The value between 1-9 to set to the cell specified.</param>
+            <param name="cellPosition">The row-column number of the cell specified.</param>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.IsBoardFilled">
+            <summary>
+            Checks the board is already filled.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.IsTableEmpty">
+            <summary>
+            Returns whether table is empty.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Sudoku.SudokuBoard.Clear">
+            <summary>
+            Fills the game board with -1 which is the default for the empty state. 
+            </summary>
+        </member>
+    </members>
+</doc>
