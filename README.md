@@ -1,4 +1,4 @@
-# SudokuLibrary-CSharp
+# SudokuLibrary
 C# Sudoku library that can solve, generate and check the Sudoku puzzles.
 
 ## Usage
